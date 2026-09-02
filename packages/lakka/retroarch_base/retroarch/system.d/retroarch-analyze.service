@@ -1,0 +1,13 @@
+[Unit]
+Description=Lakka systemd boot timing profiler
+After=systemd-hwdb-update.service
+Before=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/share/retroarch/analyze.sh
+TimeoutStartSec=30s
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

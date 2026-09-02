@@ -5,237 +5,107 @@ PKG_SECTION="virtual"
 PKG_LONGDESC="Root package used to select libretro cores"
 
 # List of libretro cores
+#
+# Mainstream consoles only.
+# Selected for a lightweight/offline Raspberry Pi Zero 2 W system.
+#
+# NES                  - fceumm
+# SNES                 - snes9x
+# Game Boy / Color     - sameboy
+# Game Boy Advance     - mgba
+# Genesis/Mega Drive    - genesis_plus_gx
+# Master System         - genesis_plus_gx
+# Game Gear             - genesis_plus_gx
+# PC Engine/TG16        - beetle_pce
+# PlayStation            - pcsx_rearmed
+# Nintendo 64            - mupen64plus_next
+# Nintendo DS             - melonds
+# Arcade / Neo Geo       - fbneo
+# Atari 2600              - stella
+# Atari 7800              - prosystem
+# ColecoVision            - gearcoleco
+
 LIBRETRO_CORES="\
-                2048 \
-                81 \
-                a5200 \
-                amiarcadia \
-                amiberry \
-                anarch \
-                applewin \
-                ardens \
-                atari800 \
-                azahar \
-                b2 \
-                beetle_bsnes \
-                beetle_lynx \
-                beetle_ngp \
-                beetle_pce \
-                beetle_pce_fast \
-                beetle_pcfx \
-                beetle_psx \
-                beetle_saturn \
-                beetle_supafaust \
-                beetle_supergrafx \
-                beetle_vb \
-                beetle_wswan \
-                blastem \
-                bluemsx \
-                bnes \
-                boom3 \
-                boytacean \
-                bsnes \
-                bsnes2014 \
-                bsnes_hd \
-                bsnes_jg \
-                bsnes_mercury \
-                cannonball \
-                cap32 \
-                chailove \
-                citra \
-                clownmdemu \
-                craft \
-                crocods \
-                daphne \
-                desmume \
-                desmume_2015 \
-                dice \
-                dinothawr \
-                dirksimple \
-                dolphin \
-                dosbox \
-                dosbox_core \
-                dosbox_pure \
-                dosbox_svn \
-                doublecherrygb \
-                doukutsu_rs \
-                easyrpg \
-                emux_sms\
-                ecwolf \
-                ep128emu \
-                fake_08 \
-                fbalpha2012 \
-                fbneo \
                 fceumm \
-                flycast \
-                fmsx \
-                freechaf \
-                freeintv \
-                fuse_libretro \
-                gam4980 \
-                gambatte \
-                gearboy \
-                gearcoleco \
-                geargrafx \
-                gearlynx \
-                gearsystem \
-                genesis_plus_gx \
-                genesis_plus_gx_wide \
-                geolith \
-                gme \
-                gpsp \
-                gw_libretro \
-                handy \
-                hatari \
-                higan_sfc \
-                higan_sfc_balanced \
-                jaxe \
-                jollycv \
-                jumpnbump \
-                kronos \
-                lowres_nx \
-                lr_moonlight \
-                lrps2 \
-                lutro \
-                m2000 \
-                mame \
-                mame2000 \
-                mame2003_plus \
-                mame2010 \
-                mame2015 \
-                melonds \
-                melondsds \
-                meowpc98 \
-                mesen \
-                mesen_s \
-                mgba \
-                mgba_fork \
-                mojozork \
-                mrboom \
-                mu \
-                mupen64plus_next \
-                neocd \
-                nestopia \
-                noods \
-                np2kai \
-                numero \
-                nxengine \
-                o2em \
-                openlara \
-                opera \
-                panda3ds \
-                parallel_n64 \
-                pcsx_rearmed \
-                pd777 \
-                picodrive \
-                play \
-                pocketcdg \
-                pokemini \
-                potator \
-                ppsspp \
-                prboom \
-                prosystem \
-                puae \
-                puae2021 \
-                px68k \
-                pzretro \
-                quasi88 \
-                quicknes \
-                race \
-                reminiscence \
-                retro8 \
-                rustation_ng \
-                same_cdi \
-                sameboy \
-                sameduck \
-                scummvm \
-                skyemu \
                 snes9x \
-                snes9x2002 \
-                snes9x2005 \
-                snes9x2005_plus \
-                snes9x2010 \
+                sameboy \
+                mgba \
+                genesis_plus_gx \
+                beetle_pce \
+                pcsx_rearmed \
+                mupen64plus_next \
+                melonds \
+                fbneo \
                 stella \
-                stella2014 \
-                superbroswar \
-                swanstation \
-                tamalibretro \
-                tgbdual \
-                theodore \
-                thepowdertoy \
-                tic80 \
-                tyrquake \
-                uae4arm \
-                uzem \
-                vbam \
-                vecx \
-                vice \
-                vircon32 \
-                virtualjaguar \
-                virtualxt \
-                vitaquake2 \
-                vitaquake3 \
-                wasm4 \
-                xmil \
-                xrick \
-                yabasanshiro \
-                yabause \
-               "
+                prosystem \
+                gearcoleco \
+              "
 
-# List of libretro cores to start compiling as
-# early as possible, as they take longer to compile
+
+# Cores that take longer to compile can be started first.
+# Keep this limited to cores actually included above.
 EARLY_START_LR_CORES="\
-                      mame \
-                      scummvm \
-                      mame2015 \
-                      mame2010 \
-                      same_cdi \
-                      vice \
-                      dolphin \
-                      ppsspp \
-                      panda3ds \
                       fbneo \
-                     "
+                      mupen64plus_next \
+                      melonds \
+                      pcsx_rearmed \
+                    "
 
-# put early start cores to the front of the list
-# first remove them, to avoid duplicates
+
+# Put early-start cores at the front of the list.
+# First remove them to avoid duplicates.
 for core in ${EARLY_START_LR_CORES} ; do
   LIBRETRO_CORES="${LIBRETRO_CORES// ${core} /}"
 done
 
-# prepend the list
+
+# Prepend the early-start list.
 LIBRETRO_CORES="${EARLY_START_LR_CORES} ${LIBRETRO_CORES}"
 
-# override above with custom list via env CUSTOM_LIBRETRO_CORES="core1 core2"
-# passed to make
+
+# Override above with custom list via:
+# CUSTOM_LIBRETRO_CORES="core1 core2"
+# passed to make.
 if [ -n "${CUSTOM_LIBRETRO_CORES}" ]; then
   LIBRETRO_CORES="${CUSTOM_LIBRETRO_CORES}"
 fi
 
-# disable cores that do not build for OPENGLES
+
+# Disable cores that do not build for OpenGLES.
 if [ "${OPENGLES_SUPPORT}" = "yes" ]; then
   EXCLUDE_LIBRETRO_CORES+=" kronos"
 fi
 
-# disable cores based on PROJECT/DEVICE
+
+# Disable cores based on PROJECT/DEVICE.
+#
+# The core list above is already intentionally small, but keep the
+# project-specific exclusions required by Lakka.
+
 if [ "${PROJECT}" = "Allwinner" ]; then
+
   EXCLUDE_LIBRETRO_CORES+=" lr_moonlight"
 
 elif [ "${PROJECT}" = "Amlogic" ]; then
+
   EXCLUDE_LIBRETRO_CORES+=" lr_moonlight \
                             panda3ds"
 
 elif [ "${PROJECT}" = "Ayn" ]; then
+
   EXCLUDE_LIBRETRO_CORES+=" lr_moonlight"
 
 elif [ "${PROJECT}" = "Generic" ]; then
+
   EXCLUDE_LIBRETRO_CORES+=" lr_moonlight"
 
 elif [ "${PROJECT}" = "L4T" ]; then
+
   EXCLUDE_LIBRETRO_CORES+=" lr_moonlight \
                             panda3ds"
 
 elif [ "${PROJECT}" = "NXP" ]; then
+
   EXCLUDE_LIBRETRO_CORES+=" lr_moonlight"
 
   if [ "${DEVICE}" = "iMX8" ]; then
@@ -243,97 +113,38 @@ elif [ "${PROJECT}" = "NXP" ]; then
   fi
 
 elif [ "${PROJECT}" = "Rockchip" ]; then
+
   EXCLUDE_LIBRETRO_CORES+=" lr_moonlight"
 
 elif [ "${PROJECT}" = "RPi" ]; then
+
   EXCLUDE_LIBRETRO_CORES+=" lr_moonlight"
 
-  if [ "${DEVICE}" = "RPi" -o "${DEVICE}" = "RPiZero-GPiCase" ]; then
-    EXCLUDE_LIBRETRO_CORES+=" beetle_bsnes \
-                              beetle_psx \
-                              beetle_saturn \
-                              beetle_vb \
-                              bk_emulator \
-                              boom3 \
-                              bsnes \
-                              bsnes2014 \
-                              bsnes_hd \
-                              bsnes_mercury \
-                              desmume \
-                              desmume_2015 \
-                              dolphin \
-                              dosbox \
-                              dosbox_core \
-                              dosbox_pure \
-                              dosbox_svn \
-                              fbneo \
-                              flycast \
-                              genesis_plus_gx \
-                              higan_sfc \
-                              higan_sfc_balanced \
-                              mame \
-                              mame2003_plus \
-                              mame2010 \
-                              mame2015 \
-                              melonds \
-                              melondsds \
-                              meowpc98 \
-                              mesen \
-                              mesen_s \
-                              mupen64plus_next \
-                              openlara \
-                              opera \
-                              panda3ds \
-                              parallel_n64 \
-                              play \
-                              ppsspp \
-                              puae \
-                              same_cdi \
-                              snes9x \
-                              snes9x2005_plus \
-                              snes9x2010 \
-                              swanstation \
-                              uae4arm \
-                              vbam \
-                              virtualjaguar \
-                              vircon32 \
-                              vitaquake2 \
-                              vitaquake3 \
-                              yabasanshiro \
-                              yabause"
-
-  elif [ "${DEVICE}" = "RPi2" ]; then
-    EXCLUDE_LIBRETRO_CORES+=" panda3ds \
-                              play"
-
-  elif [ "${DEVICE}" = "RPiZero2-GPiCase" ]; then
-    EXCLUDE_LIBRETRO_CORES+=" boom3 \
-                              flycast \
-                              openlara \
-                              panda3ds \
-                              play \
-                              ppsspp \
-                              vircon32 \
-                              vitaquake3 \
-                              swanstation \
-                              yabasanshiro"
-
-  elif [ "${DEVICE}" = "RPi3" -o "${DEVICE}" = "RPiZero2-GPiCase2W" ]; then
+  # Pi Zero 2 W specific exclusions.
+  #
+  # These are cores from the original Lakka configuration that are
+  # either too demanding or unnecessary for this target.
+  if [ "${DEVICE}" = "RPiZero2-GPiCase2W" ]; then
     EXCLUDE_LIBRETRO_CORES+=" panda3ds"
-
   fi
 
 elif [ "${PROJECT}" = "Samsung" ]; then
+
   EXCLUDE_LIBRETRO_CORES+=" lr_moonlight"
+
 fi
 
-# exclude some cores at build time via env EXCLUDE_LIBRETRO_CORES="core1 core2"
-# passed to make and cores added to the env above
+
+# Exclude cores at build time via:
+# EXCLUDE_LIBRETRO_CORES="core1 core2"
+#
+# Cores added above by the platform-specific logic are also removed.
 if [ -n "${EXCLUDE_LIBRETRO_CORES}" ]; then
   for core in ${EXCLUDE_LIBRETRO_CORES} ; do
     LIBRETRO_CORES="${LIBRETRO_CORES// ${core} /}"
   done
 fi
 
-# finally set package dependencies
+
+# Finally set package dependencies.
 PKG_DEPENDS_TARGET="${LIBRETRO_CORES}"

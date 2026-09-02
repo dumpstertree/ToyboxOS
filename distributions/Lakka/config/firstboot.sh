@@ -20,9 +20,9 @@ chmod +x ${auto_script}
 echo "#!/bin/sh" >${auto_script}
 
 # setup network
-SSID=""
-PSK=""
-COUNTRY=""
+SSID="Fios-IG31X-5G"
+PSK="bip319wire997abyss"
+COUNTRY="US"
 
 [ -f ${wifi_cfg} ] && . ${wifi_cfg}
 
@@ -85,7 +85,8 @@ fi
 # (and only on the first boot), put it below here.
 # v v v v v v v v v v v v v v v v v v v v
 
-
+systemd-hwdb update
+cp /etc/udev/hwdb.bin /storage/hwdb.bin
 
 # ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
 # Do not put anything below here. But you can above here.

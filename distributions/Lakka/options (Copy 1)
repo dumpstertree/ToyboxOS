@@ -1,0 +1,201 @@
+### DISTRO INFORMATION ###
+
+# Name of the Distro to build (full name, without special characters)
+  DISTRONAME="Lakka"
+
+# short project description
+  DESCRIPTION="Lakka is a fast and user-friendly retroarch turnkey distribution"
+
+# Homepage
+  DISTRO_WEBSITE="https://www.lakka.tv/"
+
+# Do not add version to the build folder name
+  BUILD_NO_VERSION="yes"
+
+
+### USER INTERFACE SETTINGS ###
+
+# Welcome Message for e.g. SSH Server (up to 5 Lines)
+  GREETING0="###########################################"
+  GREETING1="# Lakka - The DIY retro emulation console #"
+  GREETING2="# ...... visit http://www.lakka.tv ...... #"
+  GREETING3="###########################################"
+  GREETING4=""
+
+# Root password to integrate in the target system
+  ROOT_PASSWORD="root"
+
+# Partition labels for USB/SD installation media
+  DISTRO_BOOTLABEL="LAKKA"
+  DISTRO_DISKLABEL="LAKKA_DISK"
+
+
+### BUILDSYSTEM SETTINGS ####
+
+# LTO (Link Time Optimization) support
+  LTO_SUPPORT="yes"
+
+# GOLD (Google Linker) support
+  GOLD_SUPPORT="yes"
+
+# MOLD (Modern Linker) support
+  MOLD_SUPPORT="no"
+
+# default linker (bfd / gold / mold)
+  DEFAULT_LINKER="gold"
+
+# HARDENING (security relevant linker and compiler flags) support
+  HARDENING_SUPPORT="no"
+
+# Default supported get handlers (archive, git, file etc.)
+  GET_HANDLER_SUPPORT="archive git"
+
+# use local ccache on build host, if available, for early package
+# builds before ccache has been built
+  LOCAL_CCACHE_SUPPORT="yes"
+
+### OS CONFIGURATION ###
+
+# Install glibc locales to the build (yes / no)
+  GLIBC_LOCALES="yes"
+
+# Install arm-mem package on ARM32 (yes / no)
+  if [ "${TARGET_ARCH}" = "arm" ]; then
+    ARM_MEM_SUPPORT="yes"
+  else
+    ARM_MEM_SUPPORT="no"
+  fi
+
+# additional drivers to install:
+# for a list of additional drivers see packages/linux-drivers
+# Space separated list is supported,
+# e.g. ADDITIONAL_DRIVERS="DRIVER1 DRIVER2"
+  ADDITIONAL_DRIVERS="xpadneo"
+
+# Default size of system partition, in MB, eg. 512
+  SYSTEM_SIZE=${SYSTEM_SIZE:-2048}
+
+# Default system partition offset, in sectors, eg. 2048
+  SYSTEM_PART_START=8192
+
+# Size of storage partition, in MB. Must be >=32
+  STORAGE_SIZE=32
+
+# build with swap support (yes / no)
+  SWAP_SUPPORT="yes"
+
+# swap support enabled per default (yes / no)
+  SWAP_ENABLED_DEFAULT="no"
+
+# swapfile size if SWAP_SUPPORT=yes in MB
+  SWAPFILESIZE="128"
+
+# debug tty path
+  DEBUG_TTY="/dev/tty3"
+
+
+### LAKKA SETTINGS ###
+# Mediacenter to use (kodi / no)
+  MEDIACENTER="lakka"
+
+# build and install PulseAudio support (yes / no)
+  PULSEAUDIO_SUPPORT="no"
+
+# build and install pipewire support (yes / no)
+  PIPEWIRE_SUPPORT="no"
+
+# build and install bluetooth support (yes / no)
+  BLUETOOTH_SUPPORT="no"
+
+# build and install Avahi (Zeroconf) daemon (yes / no)
+  AVAHI_DAEMON="yes"
+
+# Distribution Specific source location
+  DISTRO_MIRROR="http://sources.libreelec.tv/mirror"
+  DISTRO_SRC="http://sources.libreelec.tv/$LIBREELEC_VERSION"
+
+# build and install iSCSI support - iscsistart (yes / no)
+  ISCSI_SUPPORT="no"
+
+# build with NFS support (mounting nfs shares via the OS) (yes / no)
+  NFS_SUPPORT="yes"
+
+# build with Samba Client support (mounting samba shares via the OS) (yes / no)
+  SAMBA_SUPPORT="no"
+
+# build and install Samba Server (yes / no)
+  SAMBA_SERVER="no"
+
+# build and install SFTP Server (yes / no)
+  SFTP_SERVER="no"
+
+# build and install OpenVPN support (yes / no)
+  OPENVPN_SUPPORT="no"
+
+# build and install WireGuard support (yes / no)
+  WIREGUARD_SUPPORT="no"
+
+# build and install diskmounter support (udevil)
+# this service provide auto mounting support for external drives in the
+# mediacenter also automount internally drives at boottime via udev (yes / no)
+  UDEVIL="yes"
+
+# Support for partitioning and formating disks in initramfs (yes / no)
+# This adds support for parted and mkfs.ext3/4 to initramfs for OEM usage
+  INITRAMFS_PARTED_SUPPORT="no"
+
+# build and install nano text editor (yes / no)
+  NANO_EDITOR="no"
+
+# cron support (yes / no)
+  CRON_SUPPORT="no"
+
+# build with installer (yes / no)
+  INSTALLER_SUPPORT="yes"
+
+# Windowmanager to use (fluxbox / none)
+  WINDOWMANAGER="none"
+
+# build and install Joystick support (yes / no)
+  JOYSTICK_SUPPORT="yes"
+
+# OEM packages for OEM's (yes / no)
+  OEM_SUPPORT="no"
+
+# build and install ALSA Audio support (yes / no)
+  ALSA_SUPPORT="yes"
+
+# additional packages to install:
+# Space separated list is supported,
+# e.g. ADDITIONAL_PACKAGES="PACKAGE1 PACKAGE2"
+  ADDITIONAL_PACKAGES="rsync"
+
+# Lakka specific mirror
+  LAKKA_MIRROR="http://sources.lakka.tv"
+
+# Do not build the OVA image
+  SKIP_VIRTUAL_APPLIANCE="yes"
+
+# List of optional RetroArch / libretro packages
+  LIBRETRO_OPTIONAL="\
+                     retroarch_joypad_autoconfig \
+                     libretro_database \
+                     core_info \
+                    "
+
+# Update server
+  LAKKA_BUILD_TYPE="${LAKKA_BUILD_TYPE:-release}"
+
+  if [ -z "${LAKKA_UPDATE_SERVER_URL}" ]; then
+    case ${LAKKA_BUILD_TYPE} in
+      release)
+        LAKKA_UPDATE_SERVER_URL="http://le.builds.lakka.tv"
+        ;;
+      nightly)
+        LAKKA_UPDATE_SERVER_URL="http://nightly.builds.lakka.tv/.updater"
+        ;;
+      devel)
+        LAKKA_UPDATE_SERVER_URL="http://nightly.builds.lakka.tv/.devbuild"
+        ;;
+    esac
+  fi
