@@ -4,7 +4,7 @@ MAX_WAIT=30
 
 for i in $(seq 1 "$MAX_WAIT"); do
 
-    if grep -q 'Name="Raspberry Pi Pico Mouse"' /proc/bus/input/devices 2>/dev/null; then
+    if grep -q '^N: Name="Raspberry Pi Pico Mouse"$' /proc/bus/input/devices 2>/dev/null; then
         break
     fi
     
