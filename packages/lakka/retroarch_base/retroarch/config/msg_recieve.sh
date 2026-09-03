@@ -19,19 +19,20 @@ while true; do
 
     case "$CMD" in
         01)
+            system-log "Command recieved: READY"
             echo "READY"
             ;;
         02)
+            system-log "Command recieved: No Game"
             echo "NO GAME"
             ;;
         03)
+            system-log "Command recieved: No Core"
             echo "NO CORE"
             ;;
         04)
-            touch /usr/share/retroarch/ready
-            ;;
-        05)
-            echo "GAME EXIT"
+            system-log "Command recieved: READY"
+            touch /usr/share/retroarch/.ready
             ;;
         *)
             echo "UNKNOWN COMMAND: 0x$CMD"
