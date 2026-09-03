@@ -28,7 +28,7 @@ while true; do
             echo "NO CORE"
             ;;
         04)
-            echo "GAME START"
+            touch /usr/share/retroarch/ready
             ;;
         05)
             echo "GAME EXIT"
