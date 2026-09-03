@@ -159,10 +159,12 @@ make_target() {
 
 makeinstall_target() {
   mkdir -p ${INSTALL}/usr/share/retroarch
-  install -m 0755 ${PKG_DIR}/config/autostart.sh \
-    ${INSTALL}/usr/share/retroarch/autostart.sh
-  install -m 0755 ${PKG_DIR}/config/analyze.sh \
-    ${INSTALL}/usr/share/retroarch/analyze.sh
+  install -m 0755 ${PKG_DIR}/config/wait_for_hid_mouse.sh ${INSTALL}/usr/share/retroarch/wait_for_hid_mouse.sh
+  install -m 0755 ${PKG_DIR}/config/wait_for_hid_keyboard.sh ${INSTALL}/usr/share/retroarch/wait_for_hid_keyboard.sh
+  install -m 0755 ${PKG_DIR}/config/wait_for_hid_gamepad.sh ${INSTALL}/usr/share/retroarch/wait_for_hid_gamepad.sh
+  install -m 0755 ${PKG_DIR}/config/wait_for_hid_storage.sh ${INSTALL}/usr/share/retroarch/wait_for_hid_storage.sh
+  install -m 0755 ${PKG_DIR}/config/autostart.sh ${INSTALL}/usr/share/retroarch/autostart.sh
+  install -m 0755 ${PKG_DIR}/config/analyze.sh ${INSTALL}/usr/share/retroarch/analyze.sh
   mkdir -p ${INSTALL}/usr/bin
     cp -v ${PKG_BUILD}/retroarch ${INSTALL}/usr/bin
     cp -v ${PKG_DIR}/scripts/lakka-*.sh ${INSTALL}/usr/bin
@@ -386,7 +388,6 @@ makeinstall_target() {
 }
 
 post_install() {
- #  enable_service retroarch.target
   enable_service tmp-cores.mount
   enable_service tmp-joypads.mount
   enable_service tmp-database.mount
