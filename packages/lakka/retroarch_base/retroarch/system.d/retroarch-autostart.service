@@ -1,6 +1,6 @@
 [Unit]
 Description=RetroArch game autostart
-After=local-fs.target
+After=require_hid_mouse.service require_hid_keyboard.service require_hid_gamepad.service require_hid_storage.service  
 Before=retroarch.service
 
 [Service]
