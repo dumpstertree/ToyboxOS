@@ -1,10 +1,9 @@
-
-
 #!/bin/sh
 
-MAX_WAIT=30
 
-for i in $(seq 1 "$MAX_WAIT"); do
+system-log "Waiting for HID storage to become available..."
+
+while true; do
 
   for dev in /dev/sd[a-z][0-9]; do
         [ -e "$dev" ] || continue
@@ -16,3 +15,6 @@ for i in $(seq 1 "$MAX_WAIT"); do
     
     sleep 1
 done
+
+system-log "HID storage successfully found!"
+
