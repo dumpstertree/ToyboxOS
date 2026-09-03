@@ -1,3 +1,6 @@
+
+system-log "Waiting for system ready message"
+
 FILE=/usr/share/retroarch/.ready
 
 while true; do
@@ -8,3 +11,5 @@ while true; do
   
   sleep 1
 done
+
+system-log "System now ready!"
