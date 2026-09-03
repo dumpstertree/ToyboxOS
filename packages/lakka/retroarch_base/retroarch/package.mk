@@ -159,6 +159,7 @@ make_target() {
 
 makeinstall_target() {
   mkdir -p ${INSTALL}/usr/share/retroarch
+  install -m 0755 ${PKG_DIR}/config/system-log.sh ${INSTALL}/usr/bin/system-log.sh
   install -m 0755 ${PKG_DIR}/config/wait_for_hid_mouse.sh ${INSTALL}/usr/share/retroarch/wait_for_hid_mouse.sh
   install -m 0755 ${PKG_DIR}/config/wait_for_hid_keyboard.sh ${INSTALL}/usr/share/retroarch/wait_for_hid_keyboard.sh
   install -m 0755 ${PKG_DIR}/config/wait_for_hid_gamepad.sh ${INSTALL}/usr/share/retroarch/wait_for_hid_gamepad.sh
