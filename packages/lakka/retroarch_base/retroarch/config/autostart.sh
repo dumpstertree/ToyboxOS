@@ -4,55 +4,6 @@ mkdir -p /storage/.config
 LOG="/storage/.config/autostart.log"
 
 {
-    echo "========================================"
-    echo "Lakka game autostart"
-    echo "Started: $(date)"
-    echo "========================================"
-    echo "[0] Waiting for HID input device..."
-
-    for i in $(seq 1 20); do
-        echo "[1] Input check $i"
-
-        if [ -d /dev/input ]; then
-            ls -la /dev/input
-        fi
-
-        if [ -s /proc/bus/input/devices ]; then
-            echo "[0] Kernel input devices:"
-            cat /proc/bus/input/devices
-        fi
-
-        if grep -q "Handlers=.*event" /proc/bus/input/devices 2>/dev/null; then
-            echo "[1] At least one input event device is registered!"
-            break
-        fi
-
-        sleep 1
-    done
-    
-    
-    echo "[INPUT] ================================"
-    echo "[INPUT] /dev/input:"
-    ls -la /dev/input
-
-    echo "[INPUT] Kernel input devices:"
-    cat /proc/bus/input/devices
-
-    echo "[INPUT] event0:"
-    ls -l /dev/input/event0
-
-    echo "[INPUT] event0 readable:"
-    test -r /dev/input/event0 && echo YES || echo NO
-
-    echo "[INPUT] udev info:"
-    udevadm info --query=all --name=/dev/input/event0 2>&1
-    
-    echo "[STORAGE] ================================"
-
-    echo "[1] Waiting for storage..."
-    sleep 2
-
-    
     cat /proc/mounts
     GAME=""
     ROM_DIR="/storage/roms"
