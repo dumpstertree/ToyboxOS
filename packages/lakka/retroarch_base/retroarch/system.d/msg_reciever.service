@@ -1,0 +1,11 @@
+[Unit]
+Description=Listen for messages from Toybox HID device 
+After=local-fs.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/share/retroarch/msg_recieve.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
