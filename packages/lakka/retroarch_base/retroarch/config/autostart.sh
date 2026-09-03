@@ -3,7 +3,12 @@
 mkdir -p /storage/.config
 LOG="/storage/.config/autostart.log"
 
+
+system-log "Launching Retroarch..."
 {
+
+    system-log "Looking for roms in /storage/roms..."
+
     cat /proc/mounts
     GAME=""
     ROM_DIR="/storage/roms"
@@ -26,6 +31,9 @@ LOG="/storage/.config/autostart.log"
     fi
 
     echo "[7] Selected game: $GAME"
+
+    system-log "Found game!"
+    system-log "Looking for Core..."
 
     case "${GAME##*.}" in
         nes|NES)
@@ -57,10 +65,15 @@ LOG="/storage/.config/autostart.log"
 
     echo "[8] Selected core: $CORE"
 
+
     if [ ! -f "$CORE" ]; then
         echo "[9] ERROR: Core does not exist!"
+        system-log "Failed to find core"
+
         exit 1
     fi
+    
+    system-log "Found Core..."
 
     echo "[9] Core exists"
 
