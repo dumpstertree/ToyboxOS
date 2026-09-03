@@ -163,6 +163,8 @@ makeinstall_target() {
   install -m 0755 ${PKG_DIR}/config/wait_for_hid_keyboard.sh ${INSTALL}/usr/share/retroarch/wait_for_hid_keyboard.sh
   install -m 0755 ${PKG_DIR}/config/wait_for_hid_gamepad.sh ${INSTALL}/usr/share/retroarch/wait_for_hid_gamepad.sh
   install -m 0755 ${PKG_DIR}/config/wait_for_hid_storage.sh ${INSTALL}/usr/share/retroarch/wait_for_hid_storage.sh
+  install -m 0755 ${PKG_DIR}/config/msg_recieve.sh ${INSTALL}/usr/share/retroarch/msg_recieve.sh
+  install -m 0755 ${PKG_DIR}/config/msg_send.sh ${INSTALL}/usr/share/retroarch/msg_send.sh
   install -m 0755 ${PKG_DIR}/config/autostart.sh ${INSTALL}/usr/share/retroarch/autostart.sh
   install -m 0755 ${PKG_DIR}/config/analyze.sh ${INSTALL}/usr/share/retroarch/analyze.sh
   mkdir -p ${INSTALL}/usr/bin
@@ -397,4 +399,9 @@ post_install() {
   enable_service tmp-system.mount
   enable_service retroarch-autostart.service
   enable_service retroarch-analyze.service
+  enable_service require_hid_mouse.service
+  enable_service require_hid_keyboard.service
+  enable_service require_hid_gamepad.service
+  enable_service require_hid_storage.service
+  enable_service msg_reciever.service
 }
