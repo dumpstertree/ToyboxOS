@@ -9,7 +9,7 @@ CMD_GAME_START=0x04
 CMD_GAME_EXIT=0x05
 
 send() {
-    printf '\x02\x%02x' "$1" > "$HID"
+    printf '%b' "$(printf '\\x02\\x%02x' "$1")" > "$HID"
 }
 
 case "$1" in
@@ -27,5 +27,9 @@ case "$1" in
         ;;
     game-exit)
         send "$CMD_GAME_EXIT"
+        ;;
+    *)
+        echo "Usage: $0 {ready|no-game|no-core|game-start|game-exit}"
+        exit 1
         ;;
 esac
