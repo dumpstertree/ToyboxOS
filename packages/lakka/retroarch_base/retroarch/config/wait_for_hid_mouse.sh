@@ -1,8 +1,8 @@
 #!/bin/sh
 
-MAX_WAIT=30
+system-log "Waiting for HID Mouse to become available..."
 
-for i in $(seq 1 "$MAX_WAIT"); do
+while true; do
 
     if grep -q '^N: Name="Raspberry Pi Pico Mouse"$' /proc/bus/input/devices 2>/dev/null; then
         break
@@ -10,3 +10,5 @@ for i in $(seq 1 "$MAX_WAIT"); do
     
     sleep 1
 done
+
+system-log "HID Mouse successfully found!"
