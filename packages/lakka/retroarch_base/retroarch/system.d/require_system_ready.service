@@ -1,0 +1,11 @@
+[Unit]
+Description=Wait for Toybox to send ready command
+After=local-fs.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/share/retroarch/wait_for_system_ready.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
